@@ -8,7 +8,7 @@ export class EventsService {
   constructor(private prisma: PrismaService) { }
 
   create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+    return this.prisma.event.create({ data: createEventDto });
   }
 
   findAll() {
@@ -23,11 +23,14 @@ export class EventsService {
     })
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+  update(id: string, updateEventDto: UpdateEventDto) {
+    return this.prisma.event.update({
+      where: { event_id: id },
+      data: updateEventDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  remove(id: string) {
+    return this.prisma.event.delete({ where: { event_id: id } });
   }
 }
