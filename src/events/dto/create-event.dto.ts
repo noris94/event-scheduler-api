@@ -1,28 +1,34 @@
 import { ApiProperty } from "@nestjs/swagger";
+import {
+    IsDateString,
+    IsNotEmpty,
+    IsOptional,
+    IsString
+} from 'class-validator';
 
 export class CreateEventDto {
 
-    @ApiProperty()
-    event_id: string;
-
+    @IsString()
+    @IsNotEmpty()
     @ApiProperty()
     title: string;
 
+    @IsString()
+    @IsOptional()
     @ApiProperty({ required: false })
-    description?: string;
+    description: string;
 
     @ApiProperty()
+    @IsDateString()
     start_time: Date;
 
     @ApiProperty()
+    @IsDateString()
     end_time: Date;
 
+    @IsString()
+    @IsOptional()
     @ApiProperty({ required: false })
-    location?: string;
+    location: string;
 
-    @ApiProperty()
-    created_at: Date;
-
-    @ApiProperty()
-    updated_at: Date;
 }

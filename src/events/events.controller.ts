@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, NotFoundException } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
@@ -24,8 +24,12 @@ export class EventsController {
 
   @Get(':id')
   @ApiOkResponse({ type: EventEntity })
-  findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const event = await this.eventsService.findOne(id);
+    if (!event) {
+      throw new NotFoundException(`Event with Id ${id} does not exist.`);
+    }
+    return event;
   }
 
   @Put(':id')
