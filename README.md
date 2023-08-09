@@ -1,73 +1,85 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Event Scheduler API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project contains the implementation of an Event Scheduler API developed in Nest.js framework using Prisma as ORM. It's a RESTful API that handles simple CRUD operations for a Event model.
+It implements Sqlite database with migrations through Prisma ORM
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Table of Contents
 
-## Description
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Usage](#usage)
+- [License](#license)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
 
-## Installation
+Before you begin, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (>=14.x)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) (for package management)
+- [SQLite](https://www.sqlite.org/) (a self-contained, serverless, zero-configuration, transactional SQL database engine)
+
+## Getting Started
+
+1. Clone this repository to your local machine:
 
 ```bash
-$ npm install
+git clone https://github.com/noris94/event-scheduler-api.git
+cd event-scheduler-api
 ```
 
-## Running the app
+2. Install dependencies using npm or yarn:
 
 ```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+npm install
 
-# production mode
-$ npm run start:prod
+# or
+
+yarn install
 ```
 
-## Test
+3. Set up your .env file in the project root with your database connection URL. You can use .env.example as a template.
+
+4. Generate Prisma Client and apply migrations:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npx prisma migrate dev --name "init"
 ```
 
-## Support
+## Project Structure
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+The project is structured as follows:
 
-## Stay in touch
+```
+src/
+├── main.ts # Application entry point
+├── modules/
+│ ├── events/
+│ │ ├── dto/ # Data transfer objects
+│ │ ├── entities/ # Prisma data models
+│ │ ├── events.controller.ts # Event controller
+│ │ ├── event.service.ts # Business logic
+│ │ └── events.module.ts # Module definition
+├── prisma/
+│ ├── schema.prisma # Prisma schema definition
+└── app.module.ts # Root module
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Usage
+
+Start the NestJS application:
+
+```
+npm run start:dev
+
+# or
+
+yarn start:dev
+```
+
+This project implements swagger UI to see definitions of endpoints, so you can visit http://localhost:3000/swagger in your browser or use tools like Postman to interact with the API.
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License.
